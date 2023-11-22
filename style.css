@@ -48,11 +48,14 @@ font-weight: 600;
     cursor: pointer;
     transition: 0,3s;
 }
-.btn:hover{
+.btn:hover:not([disabled]){
 background: black;
 color: #fff;
 }
 
+.btn{
+cursor: no-drop;
+}
 #next-btn{
     background: purple;
     color: #fff;

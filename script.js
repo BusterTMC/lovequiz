@@ -84,8 +84,8 @@ const questions = [
     {
         question: "What is the capital of the United States?",
         answers: [
-            { text: "Washington, D.C.", correct: false },
-            { text: "New York", correct: true },
+            { text: "Washington, D.C.", correct: true },
+            { text: "New York", correct: false },
             { text: "Los Angeles", correct: false },
             { text: "Seattle", correct: false },
         ]  
@@ -138,7 +138,8 @@ function selectAnswer(e){
     const isCorrect = selectedBtn.dataset.correct === "true";
     if (isCorrect){ 
         selectedBtn.classList.add("correct");
-    } else{
+        score++;
+    }else{
         selectedBtn.classList.add("incorrect");
      }
     Array.from(answerButtons.children).forEach(button => { 
@@ -149,5 +150,29 @@ function selectAnswer(e){
     });
     nextButton.style.display = "block";
  }
+
+function showScore(){
+    resetState();
+    questionElement.innerHTML = 'You scored ${score} out of ${questions.length}!';
+    nextButton.innerHTML = "Play Again";
+    nextButton.style.display = "block";
+}
+
+function handleNextButton(){
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length){ 
+        showQuestion();
+    }else{
+        showScore();
+    }
+}
+
+ nextButton.addEventListener("click", ()=>{ 
+    if(currentQuestionIndex < questions.length){
+        handleNextButton();
+    }else{
+        startQuiz(); 
+    }
+})
 
 startQuiz();
